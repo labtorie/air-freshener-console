@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/air-freshener-console/static/css/main.6e62a048.chunk.css",
+    "main.js": "/air-freshener-console/static/js/main.ae2a3c7b.chunk.js",
+    "main.js.map": "/air-freshener-console/static/js/main.ae2a3c7b.chunk.js.map",
+    "runtime-main.js": "/air-freshener-console/static/js/runtime-main.3cf2781d.js",
+    "runtime-main.js.map": "/air-freshener-console/static/js/runtime-main.3cf2781d.js.map",
+    "static/js/2.2de5f366.chunk.js": "/air-freshener-console/static/js/2.2de5f366.chunk.js",
+    "static/js/2.2de5f366.chunk.js.map": "/air-freshener-console/static/js/2.2de5f366.chunk.js.map",
+    "static/js/3.06906cb5.chunk.js": "/air-freshener-console/static/js/3.06906cb5.chunk.js",
+    "static/js/3.06906cb5.chunk.js.map": "/air-freshener-console/static/js/3.06906cb5.chunk.js.map",
+    "index.html": "/air-freshener-console/index.html",
+    "static/css/main.6e62a048.chunk.css.map": "/air-freshener-console/static/css/main.6e62a048.chunk.css.map",
+    "static/js/2.2de5f366.chunk.js.LICENSE.txt": "/air-freshener-console/static/js/2.2de5f366.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3cf2781d.js",
+    "static/js/2.2de5f366.chunk.js",
+    "static/css/main.6e62a048.chunk.css",
+    "static/js/main.ae2a3c7b.chunk.js"
+  ]
+}
