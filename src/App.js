@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from "./components/common/Header";
+import {useEffect, useState} from "react";
+import {getGraph} from "./api/api";
+import moment from "moment";
+import Graph from "./components/Graph";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [data, setData] = useState([])
+  const getData = async () => {
+  const {data} = await getGraph()
+    const dataArray = Object
+        .entries(data)
+        .filter(([key])=>key!=='last_id')
+        .map(([key, value])=>({...value, time: moment(value?.timestamp).format('DD/MM HH:MM:SS')}))
+    setData(dataArray)
+  }
+  useEffect(()=>{
+    getData()
+  }, [])
+
+  return <div>
+    <Header/>
+    <Graph data={data}/>
+  </div>
 }
 
 export default App;

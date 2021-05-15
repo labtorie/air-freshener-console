@@ -1,0 +1,10 @@
+.bar {
+  display: flex;
+  padding: 16px;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom: solid 2px #ececec;
+}
+.barTitle {
+
+}
