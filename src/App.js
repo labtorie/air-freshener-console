@@ -1,27 +1,45 @@
 import './App.css';
 import Header from "./components/common/Header";
-import {useEffect, useState} from "react";
-import {getGraph} from "./api/api";
-import moment from "moment";
-import Graph from "./components/Graph";
+import React, {useEffect, useState} from "react";
+import {getBatteryGraph, getTriggerGraph} from "./api/api";
+import BatteryGraph from "./components/Graph";
+import background from './assets/bkg.jpg'
+import styles from './styles.module.css'
+import TriggerGraph from "./components/Graph/TriggerGraph";
+import {spreadTriggersToDay} from "./utils";
 
 function App() {
-  const [data, setData] = useState([])
-  const getData = async () => {
-  const {data} = await getGraph()
+  const [batteryData, setBatteryData] = useState([])
+  const [triggerData, setTriggerData] = useState([])
+
+  const fetchTriggerData = async () => {
+    const {data} = await getTriggerGraph()
     const dataArray = Object
         .entries(data)
         .filter(([key])=>key!=='last_id')
-        .map(([key, value])=>({...value, time: moment(value?.timestamp).format('DD/MM HH:MM:SS')}))
-    setData(dataArray)
+        .map(([key, value])=>({...value, time: value?.timestamp}))
+    const daySpread = spreadTriggersToDay(dataArray)
+    setTriggerData(daySpread)
+  }
+
+  const fetchBatteryData = async () => {
+    const {data} = await getBatteryGraph()
+    const dataArray = Object
+        .entries(data)
+        .filter(([key])=>key!=='last_id')
+        .map(([key, value])=>({...value, time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
+    setBatteryData(dataArray)
   }
   useEffect(()=>{
-    getData()
+    fetchBatteryData()
+    fetchTriggerData()
   }, [])
 
-  return <div>
+  return <div style={{userSelect: 'none'}}>
+    <img src={background} className={styles.background}/>
     <Header/>
-    <Graph data={data}/>
+    <div className={styles.graphs}><BatteryGraph data={batteryData}/>
+      <TriggerGraph data={triggerData}/></div>
   </div>
 }
 

@@ -1,0 +1,13 @@
+.background {
+ position: fixed;
+    height: 80vh;
+   bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.graphs {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+}

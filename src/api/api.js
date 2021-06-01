@@ -6,6 +6,10 @@ const API = axios.create({
     withCredentials: false
 })
 
-export const getGraph = () => {
-    return API.get('graph.json')
+export const getBatteryGraph = () => {
+    return API.get('battery.json')
+}
+
+export const getTriggerGraph = () => {
+    return API.get('trigger.json')
 }
