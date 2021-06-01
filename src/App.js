@@ -35,12 +35,13 @@ function App() {
     fetchTriggerData()
   }, [])
 
-  return <div style={{userSelect: 'none'}}>
-    <img src={background} className={styles.background}/>
+  return <div className={styles.body}>
     <Header/>
     <div className={styles.graphs}><BatteryGraph data={batteryData}/>
       <TriggerGraph data={triggerData}/></div>
   </div>
 }
+
+//    <img src={background} className={styles.background}/>
 
 export default App;
