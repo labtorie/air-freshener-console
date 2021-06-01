@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/air-freshener-console/static/css/main.5f19e2d3.chunk.css",
+    "main.css": "/air-freshener-console/static/css/main.af4ffe4a.chunk.css",
     "main.js": "/air-freshener-console/static/js/main.c50b12df.chunk.js",
     "main.js.map": "/air-freshener-console/static/js/main.c50b12df.chunk.js.map",
     "runtime-main.js": "/air-freshener-console/static/js/runtime-main.bf45cbaa.js",
@@ -10,14 +10,14 @@
     "static/js/3.3c48f8fd.chunk.js": "/air-freshener-console/static/js/3.3c48f8fd.chunk.js",
     "static/js/3.3c48f8fd.chunk.js.map": "/air-freshener-console/static/js/3.3c48f8fd.chunk.js.map",
     "index.html": "/air-freshener-console/index.html",
-    "static/css/main.5f19e2d3.chunk.css.map": "/air-freshener-console/static/css/main.5f19e2d3.chunk.css.map",
+    "static/css/main.af4ffe4a.chunk.css.map": "/air-freshener-console/static/css/main.af4ffe4a.chunk.css.map",
     "static/js/2.fa1e8b41.chunk.js.LICENSE.txt": "/air-freshener-console/static/js/2.fa1e8b41.chunk.js.LICENSE.txt",
     "static/media/bkg.5f5f183a.jpg": "/air-freshener-console/static/media/bkg.5f5f183a.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.bf45cbaa.js",
     "static/js/2.fa1e8b41.chunk.js",
-    "static/css/main.5f19e2d3.chunk.css",
+    "static/css/main.af4ffe4a.chunk.css",
     "static/js/main.c50b12df.chunk.js"
   ]
 }
