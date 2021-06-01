@@ -8,7 +8,9 @@
 
 .graphs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-    width: 100vw;
+    padding: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+    width: calc(100vw - 32px);
+    justify-content: center;
     grid-gap: 16px;
 }
