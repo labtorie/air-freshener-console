@@ -1,0 +1,69 @@
+@media screen and (min-width: 750px) {
+    .mainGrid {
+        display: grid;
+        padding: 40px 56px;
+        max-width: calc(100vw - 112px);
+        overflow: hidden;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 320px 1fr;
+        grid-template-areas:
+            "volt today today sets"
+            "graph1 graph1 graph2 graph2";
+        grid-gap: 16px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .mainGrid {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        max-width: calc(100vw - 32px);
+        overflow: hidden;
+
+        gap: 16px;
+    }
+}
+
+.card {
+    border-radius: 24px;
+    min-height: 320px;
+    box-shadow:
+            0 0.5px 1.3px -9px rgba(0, 0, 0, 0.097),
+            0 1.6px 4.2px -9px rgba(0, 0, 0, 0.143),
+            0 7px 19px -9px rgba(0, 0, 0, 0.24)
+;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardMainContent {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    transition-duration: .3s;
+}
+
+.cardBottomText {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    display: flex;
+    padding-bottom: 48px;
+    justify-content: center;
+}
+
+.clickable:hover .cardMainContent {
+    transform: scale(1.1);
+
+}
+
+.clickable {
+    cursor: pointer;
+}

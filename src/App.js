@@ -7,6 +7,7 @@ import background from './assets/bkg.jpg'
 import styles from './styles.module.css'
 import TriggerGraph from "./components/Graph/TriggerGraph";
 import {spreadTriggersToDay} from "./utils";
+import Main from "./components/screens/Main";
 
 function App() {
   const [batteryData, setBatteryData] = useState([])
@@ -37,8 +38,9 @@ function App() {
 
   return <div className={styles.body}>
     <Header/>
-    <div className={styles.graphs}><BatteryGraph data={batteryData}/>
-      <TriggerGraph data={triggerData}/></div>
+    <Main/>
+    {/*<div className={styles.graphs}><BatteryGraph data={batteryData}/>
+      <TriggerGraph data={triggerData}/></div>*/}
   </div>
 }
 
