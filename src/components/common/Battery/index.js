@@ -50,7 +50,6 @@ const Battery = () => {
             .filter(([key])=>key!=='last_id')
             .map(([key, value])=>({...value, time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
         const lastRecord = dataArray.slice(-1)[0]
-        debugger
         setState({percentage: lastRecord?.value || 0, lastFetch: lastRecord?.time || moment()})
     }
 

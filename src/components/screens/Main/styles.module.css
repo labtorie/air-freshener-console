@@ -17,10 +17,6 @@
     .mainGrid {
         display: flex;
         flex-direction: column;
-        padding: 16px;
-        max-width: calc(100vw - 32px);
-        overflow: hidden;
-
         gap: 16px;
     }
 }
@@ -66,4 +62,25 @@
 
 .clickable {
     cursor: pointer;
+}
+
+.totalGrid {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.totalRow {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.totalTitle {
+    font-weight: 500;
+    font-size: 14pt;
+}
+
+.totalValue {
+
 }

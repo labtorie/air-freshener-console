@@ -1,0 +1,95 @@
+.container {
+    background-color: rgba(0,0,0,.4);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    display: none;
+    z-index: 1000;
+}
+
+.wrapper  {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    right: -500px;
+    right: -500px;
+    background-color: white;
+    padding: 16px 32px;
+    width: 400px;
+    max-width: calc(100vw - 64px);
+    height: calc(100vh - 32px);
+    transition: right 0.4s ease-out, opacity 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow:
+             -2.5px 0 1.9px rgba(0, 0, 0, 0.031),
+             -6.1px 0 4.7px rgba(0, 0, 0, 0.044),
+             -11.4px 0 8.8px rgba(0, 0, 0, 0.055),
+             -20.3px 0 15.6px rgba(0, 0, 0, 0.066),
+             -38px 0 29.2px rgba(0, 0, 0, 0.079),
+             -91px 0 70px rgba(0, 0, 0, 0.11)
+;
+
+}
+
+.show {
+    opacity: 1;
+    display: block;
+    right: 0;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.inputArea {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.inputArea input {
+    padding: 4px;
+    text-align: center;
+    width: 44px;
+    border: solid 2px #888;
+    border-radius: 4px;
+}
+.inputArea input:focus {
+    outline: none !important;
+    border-color: #0071B0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+button {
+    background-color: #0071B0;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.goBack {
+    color: #0071B0;
+    cursor: pointer;
+}

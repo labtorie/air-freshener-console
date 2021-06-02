@@ -4,7 +4,7 @@ import ApexChart from 'react-apexcharts'
 
 const TriggerGraph = ({data = []}) => {
 
-    const series = [{data: data.map(({value}) => value), name: 'Usage'}]
+    const series = [{data: data.map(({value}) => value), name: 'Activations'}]
 
     const options = {
         chart: {
@@ -36,22 +36,21 @@ const TriggerGraph = ({data = []}) => {
             dashArray: 0
         },
         markers: {
-            size: 0
+            size: 3
         },
         yaxis: {
-            show: false
+            show: false,
+            labels: {
+                formatter: val => val+' times',
+
+            }
         },
         xaxis: {
             show: true,
             categories: data.map(({hour}) => hour+':00'),
             labels: {
                 show: true,
-                style: {
-                    colors: ["#161616"],
-                    fontSize: "11px",
-                    fontFamily: 'Arial',
-                }
-            }
+            },
         },
         legend: {
             show: false

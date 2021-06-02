@@ -16,8 +16,5 @@
 }
 
 .body {
-    background-color: #fefefa;
-    max-height: 100vh;
-    max-width: 100vw;
     user-select: none;
 }
