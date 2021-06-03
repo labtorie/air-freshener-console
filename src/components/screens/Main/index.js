@@ -20,7 +20,7 @@ import {levels} from "../../../config/battery";
 const Main = () => {
     const [batteryData, setBatteryData] = useState([])
     const [triggerData, setTriggerData] = useState([])
-    const [currentVoltage, setCurrentVoltage] = useState(0)
+    const [currentVoltage, setCurrentVoltage] = useState(0.0)
     const [totalPshicks, setTotalPshicks] = useState({today: 0, week: 0, month: 0})
     const [displayModal, setDisplayModal] = useState(false);
 
@@ -28,7 +28,7 @@ const Main = () => {
     const fetchTriggerData = async () => {
         const {data} = await getTriggerGraph()
         const dataArray = Object
-            .entries(data)
+            .entries(data|| {})
             .filter(([key])=>key!=='last_id')
             .map(([key, value])=>({...value, time: value?.timestamp}))
         const daySpread = spreadTriggersToDay(dataArray)
@@ -43,7 +43,7 @@ const Main = () => {
     const fetchBatteryData = async () => {
         const {data} = await getBatteryGraph()
         const dataArray = Object
-            .entries(data)
+            .entries(data || {})
             .filter(([key])=>key!=='last_id')
             .map(([key, value])=>({...value, value: (value.value / 1000).toFixed(1), time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
         setBatteryData(dataArray)
@@ -85,7 +85,7 @@ const Main = () => {
             <Card mainComponent={
                 <div className={styles.totalRow}>
                     <div className={styles.totalTitle}>Volts</div>
-                    <div className={styles.totalValue}>{currentVoltage}</div>
+                    <div className={styles.totalValue}>{currentVoltage || '0.0'}</div>
                 </div>
             } bottomText={getBatteryStatus(currentVoltage)} gridArea={'volt'}/>
             <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
