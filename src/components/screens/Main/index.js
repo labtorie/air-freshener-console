@@ -1,18 +1,26 @@
 import React, {useEffect, useState} from 'react'
 import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCog} from "@fortawesome/free-solid-svg-icons";
+import {
+    faBatteryEmpty, faBatteryFull,
+    faBatteryHalf,
+    faBatteryQuarter,
+    faBatteryThreeQuarters,
+    faCog
+} from "@fortawesome/free-solid-svg-icons";
 import {getBatteryGraph, getTriggerGraph} from "../../../api/api";
 import {getTotalPshicks, spreadTriggersToDay} from "../../../utils";
 import BatteryGraph from "../../Graph";
 import TriggerGraph from "../../Graph/TriggerGraph";
 import classNames from "classnames";
 import Settings from "../Settings";
+import {levels} from "../../../config/battery";
 
 
 const Main = () => {
     const [batteryData, setBatteryData] = useState([])
     const [triggerData, setTriggerData] = useState([])
+    const [currentVoltage, setCurrentVoltage] = useState(0)
     const [totalPshicks, setTotalPshicks] = useState({today: 0, week: 0, month: 0})
     const [displayModal, setDisplayModal] = useState(false);
 
@@ -37,8 +45,18 @@ const Main = () => {
         const dataArray = Object
             .entries(data)
             .filter(([key])=>key!=='last_id')
-            .map(([key, value])=>({...value, time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
+            .map(([key, value])=>({...value, value: (value.value / 1000).toFixed(1), time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
         setBatteryData(dataArray)
+        setCurrentVoltage(dataArray.slice(-1)[0]?.value)
+    }
+
+    const getBatteryStatus = (voltage) => {
+        if (voltage < levels[0]) return 'Too low. Needs charging'
+        if (voltage < levels[1]) return 'Running low'
+        if (voltage < levels[2]) return 'Enough to work'
+        if (voltage < levels[3]) return 'Good'
+
+        return 'Fully charged'
     }
     useEffect(()=>{
         fetchBatteryData()
@@ -64,17 +82,22 @@ const Main = () => {
     return <>
         <Settings isVisible={displayModal} onClose={()=>setDisplayModal(false)}/>
         <div className={styles.mainGrid}>
-        <Card mainComponent={'7.3V'} bottomText={'Enough to work (Mock)'} gridArea={'volt'}/>
-        <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
-        <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'} onCLick={()=>setDisplayModal(p=>!p)}/>
-        <GraphCard gridArea={'graph1'}>
-            <BatteryGraph data={batteryData}/>
-        </GraphCard>
-        <GraphCard gridArea={'graph2'}>
-            <TriggerGraph data={triggerData}/>
-        </GraphCard>
-    </div>
-        </>
+            <Card mainComponent={
+                <div className={styles.totalRow}>
+                    <div className={styles.totalTitle}>Volts</div>
+                    <div className={styles.totalValue}>{currentVoltage}</div>
+                </div>
+            } bottomText={getBatteryStatus(currentVoltage)} gridArea={'volt'}/>
+            <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
+            <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'} onCLick={()=>setDisplayModal(p=>!p)}/>
+            <GraphCard gridArea={'graph1'}>
+                <BatteryGraph data={batteryData}/>
+            </GraphCard>
+            <GraphCard gridArea={'graph2'}>
+                <TriggerGraph data={triggerData}/>
+            </GraphCard>
+        </div>
+    </>
 }
 
 const Card = ({gridArea='', mainComponent='', bottomText='', onCLick}) => {

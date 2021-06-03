@@ -2,11 +2,12 @@ import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 import moment from "moment";
 import styles from './styles.module.css'
+import {voltage} from "../../config/battery";
 
 const BatteryGraph = ({data=[]}) => {
 
     const options = {
-            colors: ['#00ff00'],
+            colors: ['#5fd393'],
             chart: {
                 type: 'area',
                 stacked: false,
@@ -37,21 +38,21 @@ const BatteryGraph = ({data=[]}) => {
                 size: 0,
             },
             title: {
-                text: 'Battery Percentage',
+                text: 'Battery Voltage',
                 align: 'left'
             },
             fill: {
-                colors: ['#00ff00'],
+                colors: ['#5fd393'],
             },
             yaxis: {
-                max: 100,
+                max: voltage.max,
+                min: voltage.min,
                 type: 'numeric',
-                min: 0,
                 title: {
-                    text: 'Battery'
+                    text: 'Volts'
                 },
                 labels: {
-                    formatter: (val) => val+'%'
+                    formatter: (val) => val.toFixed(1)
                 }
             },
             xaxis: {

@@ -16,13 +16,12 @@
     opacity: 0;
     top: 0;
     right: -500px;
-    right: -500px;
     background-color: white;
     padding: 16px 32px;
     width: 400px;
     max-width: calc(100vw - 64px);
     height: calc(100vh - 32px);
-    transition: right 0.4s ease-out, opacity 0.3s ease-in-out;
+    transition: right 0.4s ease-in-out, opacity 0.3s ease-in-out;
     z-index: 1000;
     box-shadow:
              -2.5px 0 1.9px rgba(0, 0, 0, 0.031),
@@ -44,8 +43,8 @@
 .section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .inputArea {
@@ -85,7 +84,7 @@ button {
     color: white;
     padding: 12px;
     border-radius: 4px;
-    margin-bottom: 16px;
+    margin: 12px 0;
     cursor: pointer;
 }
 

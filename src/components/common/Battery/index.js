@@ -9,14 +9,15 @@ import {
 import {getBatteryGraph} from "../../../api/api";
 import moment from "moment";
 import styles from './styles.module.css'
+import {levels} from "../../../config/battery";
 
 const Battery = () => {
     const [state, setState] = useState({percentage: 100, lastFetch: moment()})
-    const getIcon = (percentage) => {
-        if (percentage < 10) return [faBatteryEmpty, '#eb3f33']
-        if (percentage < 25) return [faBatteryQuarter, '#ffce5c']
-        if (percentage < 50) return [faBatteryHalf, '#5fd393']
-        if (percentage < 75) return [faBatteryThreeQuarters, '#5fd393']
+    const getIcon = (voltage) => {
+        if (voltage < levels[0]) return [faBatteryEmpty, '#eb3f33']
+        if (voltage < levels[1]) return [faBatteryQuarter, '#ffce5c']
+        if (voltage < levels[2]) return [faBatteryHalf, '#5fd393']
+        if (voltage < levels[3]) return [faBatteryThreeQuarters, '#5fd393']
 
         return [faBatteryFull, '#5fd393']
     }
@@ -51,7 +52,7 @@ const Battery = () => {
             .filter(([key])=>key!=='last_id')
             .map(([key, value])=>({...value, time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
         const lastRecord = dataArray.slice(-1)[0]
-        setState({percentage: lastRecord?.value || 0, lastFetch: lastRecord?.time || moment()})
+        setState({percentage: ((lastRecord?.value || 0)/1000).toFixed(1), lastFetch: lastRecord?.time || moment()})
     }
 
     const shuffle = () => {
@@ -65,7 +66,7 @@ const Battery = () => {
     return <div className={styles.battery} onDoubleClick={shuffle}>
         <FontAwesomeIcon icon={icon[0]} color={icon[1]}/>
         <div>
-            {state.percentage+'%'}
+            {state.percentage+'V'}
         </div>
         <div style={{color: '#888'}}>
             {getDiff().join(' ')+' ago'}
