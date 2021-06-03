@@ -17,7 +17,8 @@ const Battery = () => {
         if (percentage < 25) return [faBatteryQuarter, '#ffce5c']
         if (percentage < 50) return [faBatteryHalf, '#5fd393']
         if (percentage < 75) return [faBatteryThreeQuarters, '#5fd393']
-        if (percentage <= 100) return [faBatteryFull, '#5fd393']
+
+        return [faBatteryFull, '#5fd393']
     }
 
     const getDiff = () => {
