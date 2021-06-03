@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/air-freshener-console/static/css/main.fc15bc44.chunk.css",
-    "main.js": "/air-freshener-console/static/js/main.7dfeba3e.chunk.js",
-    "main.js.map": "/air-freshener-console/static/js/main.7dfeba3e.chunk.js.map",
+    "main.js": "/air-freshener-console/static/js/main.56994116.chunk.js",
+    "main.js.map": "/air-freshener-console/static/js/main.56994116.chunk.js.map",
     "runtime-main.js": "/air-freshener-console/static/js/runtime-main.24116f5d.js",
     "runtime-main.js.map": "/air-freshener-console/static/js/runtime-main.24116f5d.js.map",
     "static/js/2.3378ca50.chunk.js": "/air-freshener-console/static/js/2.3378ca50.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.24116f5d.js",
     "static/js/2.3378ca50.chunk.js",
     "static/css/main.fc15bc44.chunk.css",
-    "static/js/main.7dfeba3e.chunk.js"
+    "static/js/main.56994116.chunk.js"
   ]
 }
