@@ -15,6 +15,7 @@ import TriggerGraph from "../../Graph/TriggerGraph";
 import classNames from "classnames";
 import Settings from "../Settings";
 import {levels} from "../../../config/battery";
+import {FETCH_INTERVAL} from "../../../config/network";
 
 
 const Main = () => {
@@ -58,9 +59,17 @@ const Main = () => {
 
         return 'Fully charged'
     }
-    useEffect(()=>{
+
+    const startService = () => {
         fetchBatteryData()
         fetchTriggerData()
+        setInterval(()=>{
+            fetchBatteryData()
+            fetchTriggerData()
+        }, FETCH_INTERVAL)
+    }
+    useEffect(()=>{
+       startService()
     }, [])
 
     const totalGrid = <div className={styles.totalGrid}>

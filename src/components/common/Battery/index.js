@@ -10,6 +10,7 @@ import {getBatteryGraph} from "../../../api/api";
 import moment from "moment";
 import styles from './styles.module.css'
 import {levels} from "../../../config/battery";
+import {FETCH_INTERVAL} from "../../../config/network";
 
 const Battery = () => {
     const [state, setState] = useState({percentage: 100, lastFetch: moment()})
@@ -62,7 +63,14 @@ const Battery = () => {
 
 
     const icon = getIcon(state.percentage)
-    useEffect(()=>{fetchBattery()},[])
+
+    const startService = () => {
+        fetchBattery()
+        setInterval(()=>{
+            fetchBattery()
+        }, FETCH_INTERVAL)
+    }
+    useEffect(()=>{startService()},[])
     return <div className={styles.battery} onDoubleClick={shuffle}>
         <FontAwesomeIcon icon={icon[0]} color={icon[1]}/>
         <div>
