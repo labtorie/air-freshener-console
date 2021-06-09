@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    font-family: 'Montserrat', sans-serif;
 }
 .battery div {
     font-size: 12px;

@@ -10,11 +10,17 @@ const TriggerGraph = ({data = []}) => {
         chart: {
             width: 380,
             type: 'radar',
-
+            toolbar: {
+                tools: {download: false}
+            },
         },
         title: {
             text: 'Daily usage',
-            align: 'left'
+            align: 'left',
+            style: {
+                fontFamily: 'Montserrat, sans-serif',
+                fontWeight: 700,
+            }
         },
         plotOptions: {
             radar: {
@@ -50,11 +56,22 @@ const TriggerGraph = ({data = []}) => {
             categories: data.map(({hour}) => hour+':00'),
             labels: {
                 show: true,
+                style: {
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 500,
+                }
             },
+
         },
         legend: {
             show: false
         },
+        tooltip: {
+            style: {
+                fontFamily: 'Montserrat, sans-serif',
+                fontWeight: 500,
+            }
+        }
 
     }
 
