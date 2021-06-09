@@ -1,5 +1,8 @@
 import axios from "axios";
 import {BASE_URL} from "../config/network";
+import firebase from "firebase";
+import {email} from "../config/firebase";
+
 
 const API = axios.create({
     baseURL: BASE_URL,
@@ -19,6 +22,40 @@ export const getSettings =  () => {
 }
 
 export const setSettings = async (data) => {
+    const token = await firebase.auth().currentUser.getIdToken()
     const prevSettings = await getSettings()
-    return API.put('settings.json', {...prevSettings, ...data})
+    return API.put('settings.json?auth='+token, {...prevSettings, ...data})
 }
+
+export const signIn = async (password) => {
+   return firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            return error
+        });
+
+}
+
+export const signOut = async () => {
+    return await firebase.auth().signOut()
+
+}
+
+export const changePassword = async (password) => {
+    const user = firebase.auth().currentUser;
+
+    return user.updatePassword(password).then(function() {
+        // Update successful.
+    }).catch(function(error) {
+        return error
+    });
+}
+
+
+
+
+

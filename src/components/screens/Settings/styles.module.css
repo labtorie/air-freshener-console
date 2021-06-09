@@ -36,7 +36,8 @@
 
 .show {
     opacity: 1;
-    display: block;
+    display: flex;
+    flex-direction: column;
     right: 0;
 }
 
@@ -77,6 +78,18 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.settingsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.controllers {
+    display: flex;
+    gap: 8px
+}
+.signOut {
+    cursor: pointer;
+}
 button {
     background-color: #0071B0;
     border: none;
@@ -91,4 +104,9 @@ button {
 .goBack {
     color: #0071B0;
     cursor: pointer;
+    justify-self: flex-end;
+}
+
+.error {
+    color: #a20000;
 }
