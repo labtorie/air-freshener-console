@@ -1,4 +1,3 @@
-import './App.css';
 import Header from "./components/common/Header";
 import React, {useEffect} from "react";
 import styles from './styles.module.css'
