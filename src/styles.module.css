@@ -1,20 +1,22 @@
-.background {
- position: fixed;
-    height: 80vh;
-   bottom: 0;
+.loadingOverlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
     left: 0;
-    z-index: -1;
-}
-
-.graphs {
-    display: grid;
-    padding: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
-    width: calc(100vw - 32px);
-    justify-content: center;
-    grid-gap: 16px;
+    background-color: white;
+    transition-duration: 1s;
+    z-index: 10000;
+    pointer-events: none;
 }
 
 .body {
     user-select: none;
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+.contentWrapper {
+    width: 100%;
+    overflow-y: hidden;
 }

@@ -1,55 +1,24 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faBatteryEmpty, faBatteryFull,
-    faBatteryHalf,
-    faBatteryQuarter,
-    faBatteryThreeQuarters,
-    faCog
-} from "@fortawesome/free-solid-svg-icons";
-import {getBatteryGraph, getTriggerGraph} from "../../../api/api";
-import {getTotalPshicks, spreadTriggersToDay} from "../../../utils";
+import {faCog} from "@fortawesome/free-solid-svg-icons";
 import BatteryGraph from "../../Graph";
 import TriggerGraph from "../../Graph/TriggerGraph";
 import classNames from "classnames";
 import Settings from "../Settings";
 import {levels} from "../../../config/battery";
-import {FETCH_INTERVAL} from "../../../config/network";
+import DataContext from "../../../contexts/dataContext";
 
 
 const Main = () => {
-    const [batteryData, setBatteryData] = useState([])
-    const [triggerData, setTriggerData] = useState([])
-    const [currentVoltage, setCurrentVoltage] = useState(0.0)
-    const [totalPshicks, setTotalPshicks] = useState({today: 0, week: 0, month: 0})
     const [displayModal, setDisplayModal] = useState(false);
 
+    const {data, startService} = useContext(DataContext)
 
-    const fetchTriggerData = async () => {
-        const {data} = await getTriggerGraph()
-        const dataArray = Object
-            .entries(data|| {})
-            .filter(([key])=>key!=='last_id')
-            .map(([key, value])=>({...value, time: value?.timestamp}))
-        const daySpread = spreadTriggersToDay(dataArray)
-        const _todayPshicks = getTotalPshicks(dataArray, 'day')
-        const _weekPshicks = getTotalPshicks(dataArray, 'week')
-        const _monthPshicks = getTotalPshicks(dataArray, 'month')
+    useEffect(()=>{
+        startService()
+    },[])
 
-        setTotalPshicks({today: _todayPshicks, week: _weekPshicks, month: _monthPshicks})
-        setTriggerData(daySpread)
-    }
-
-    const fetchBatteryData = async () => {
-        const {data} = await getBatteryGraph()
-        const dataArray = Object
-            .entries(data || {})
-            .filter(([key])=>key!=='last_id')
-            .map(([key, value])=>({...value, value: (value.value / 1000).toFixed(1), time: value?.timestamp/* moment(value?.timestamp).format('DD/MM HH:MM:SS')*/}))
-        setBatteryData(dataArray)
-        setCurrentVoltage(dataArray.slice(-1)[0]?.value)
-    }
 
     const getBatteryStatus = (voltage) => {
         if (voltage < levels[0]) return 'Too low. Needs charging'
@@ -60,30 +29,19 @@ const Main = () => {
         return 'Fully charged'
     }
 
-    const startService = () => {
-        fetchBatteryData()
-        fetchTriggerData()
-        setInterval(()=>{
-            fetchBatteryData()
-            fetchTriggerData()
-        }, FETCH_INTERVAL)
-    }
-    useEffect(()=>{
-       startService()
-    }, [])
 
     const totalGrid = <div className={styles.totalGrid}>
         <div className={styles.totalRow}>
             <div className={styles.totalTitle}>Today</div>
-            <div className={styles.totalValue}>{totalPshicks.today}</div>
+            <div className={styles.totalValue}>{data.currentState?.recentActivity?.day}</div>
         </div>
         <div className={styles.totalRow}>
             <div className={styles.totalTitle}>Week</div>
-            <div className={styles.totalValue}>{totalPshicks.week}</div>
+            <div className={styles.totalValue}>{data.currentState?.recentActivity?.week}</div>
         </div>
         <div className={styles.totalRow}>
             <div className={styles.totalTitle}>Month</div>
-            <div className={styles.totalValue}>{totalPshicks.month}</div>
+            <div className={styles.totalValue}>{data.currentState?.recentActivity?.month}</div>
         </div>
     </div>
 
@@ -94,16 +52,16 @@ const Main = () => {
             <Card mainComponent={
                 <div className={styles.totalRow}>
                     <div className={styles.totalTitle}>Volts</div>
-                    <div className={styles.totalValue}>{currentVoltage || '0.0'}</div>
+                    <div className={styles.totalValue}>{data.currentState?.voltage?.value || '0.0'}</div>
                 </div>
-            } bottomText={getBatteryStatus(currentVoltage)} gridArea={'volt'}/>
+            } bottomText={getBatteryStatus(data.currentState?.voltage?.value)} gridArea={'volt'}/>
             <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
             <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'} onCLick={()=>setDisplayModal(p=>!p)}/>
             <GraphCard gridArea={'graph1'}>
-                <BatteryGraph data={batteryData}/>
+                <BatteryGraph data={data.plots?.voltage?.data}/>
             </GraphCard>
             <GraphCard gridArea={'graph2'}>
-                <TriggerGraph data={triggerData}/>
+                <TriggerGraph data={data.plots?.activations?.data}/>
             </GraphCard>
         </div>
     </>
