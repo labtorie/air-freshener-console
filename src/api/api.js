@@ -7,11 +7,11 @@ const API = axios.create({
 })
 
 export const getBatteryGraph = async () => {
-    return await API.get('test2/battery.json')
+    return await API.get('data/battery.json')
 }
 
 export const getTriggerGraph = async () => {
-    return await API.get('test2/trigger.json')
+    return await API.get('data/trigger.json')
 }
 
 export const getSettings =  () => {

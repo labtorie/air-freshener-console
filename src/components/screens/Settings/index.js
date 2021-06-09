@@ -1,28 +1,23 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import s from './styles.module.css'
 import cn from "classnames";
-import Header from "../../common/Header";
 import {getSettings, setSettings} from "../../../api/api";
+import DataContext from "../../../contexts/dataContext";
 
 const Settings = ({isVisible, onClose=()=>{}}) => {
 
-    const [settings, _setSettings] = useState({activeTime: 0, sleepTime: 0})
+    const {data: {settings}, fetchSettings, saveSettings} = useContext(DataContext)
+    const [_settings, _setSettings] = useState(settings)
 
-    const fetchSettings = async () => {
-        const response = await getSettings()
-        _setSettings(prev=>({...prev, ...response}))
-    }
 
-    const saveSettings = async () => {
-        await setSettings({
-            activeTime: Number(settings.activeTime),
-            sleepTime: Number(settings.sleepTime)
-        })
+    const onSave = async () => {
+        await saveSettings(_settings)
         onClose()
     }
 
     useEffect(()=>{
         fetchSettings()
+        _setSettings(settings)
     },[isVisible])
 
 
@@ -30,20 +25,20 @@ const Settings = ({isVisible, onClose=()=>{}}) => {
             <h1>Settings</h1>
         <div className={s.section}><span>Waiting time before sleep</span>
             <div className={s.inputArea}>
-                <input value={settings.activeTime}
+                <input value={_settings.activeTime}
                        onChange={e=>_setSettings(prev=>({...prev, activeTime: e.target.value}))}
                        type={'number'}/>seconds</div>
         </div>
         <div className={s.section}><span>Sleep time</span>
             <div className={s.inputArea}>
-                <input value={settings.sleepTime}
+                <input value={_settings.sleepTime}
                        onChange={e=>_setSettings(prev=>({...prev, sleepTime: e.target.value}))}
                        type={'number'}/>seconds</div>
         </div>
         <div className={s.section}><span>Spray interval</span>
             <div className={s.inputArea}><input type={'number'} disabled/>minutes</div>
         </div>
-        <button onClick={saveSettings}>Apply changes</button>
+        <button onClick={onSave}>Apply changes</button>
         <div onClick={onClose} className={s.goBack}>{'< Back to home screen'}</div>
         </div>
 
