@@ -39,7 +39,11 @@ const BatteryGraph = ({data=[]}) => {
             },
             title: {
                 text: 'Battery Voltage',
-                align: 'left'
+                align: 'left',
+                style: {
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 700,
+                }
             },
             fill: {
                 colors: ['#5fd393'],
@@ -49,23 +53,40 @@ const BatteryGraph = ({data=[]}) => {
                 min: voltage.min,
                 type: 'numeric',
                 title: {
-                    text: 'Volts'
+                    text: 'Volts',
+                    style: {
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontWeight: 500,
+                    }
                 },
                 labels: {
-                    formatter: (val) => val.toFixed(1)
-                }
+                    formatter: (val) => val.toFixed(1),
+                    style: {
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontWeight: 500,
+                    }
+                },
+
             },
             xaxis: {
                 type: 'numeric',
                 categories: data.map(({time})=>time),
                 labels: {
                     formatter: function (val) {
-                        return moment(val).format('DD/MM HH:mm');
+                        return moment(val).format('DD.MM HH:mm');
                     },
+                    style: {
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontWeight: 500,
+                    }
                 },
             },
             tooltip: {
                 shared: false,
+                style: {
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 500,
+                }
             }
         }
 
