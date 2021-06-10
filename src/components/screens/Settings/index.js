@@ -125,7 +125,7 @@ const Settings = ({isVisible, onClose=()=>{}, user, isSignedIn=false}) => {
                        onChange={e=>_setSettings(prev=>({...prev, sleepTime: e.target.value}))}
                        type={'number'}/>seconds</div>
         </div>
-        <div className={s.section}><span>Spray interval</span>
+        <div className={s.section} style={{opacity: .7}}><span>Spray interval (in development)</span>
             <div className={s.inputArea}><input type={'number'} disabled/>minutes</div>
         </div>
         <button onClick={onSave} disabled={!hasSettingsChanged()}>Apply changes</button>
