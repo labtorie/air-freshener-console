@@ -32,7 +32,7 @@ const Settings = ({isVisible, onClose=()=>{}, user, isSignedIn=false}) => {
 
     const hasSettingsChanged = () => {
         return !(settings?.sleepTime == _settings?.sleepTime
-            && settings?.activeTime == settings?.activeTime)
+            && settings?.activeTime == _settings?.activeTime)
     }
 
     const onSignIn = async () => {
