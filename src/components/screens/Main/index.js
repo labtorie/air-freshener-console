@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import styles from './styles.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCog} from "@fortawesome/free-solid-svg-icons";
 import BatteryGraph from "../../Graph";
 import TriggerGraph from "../../Graph/TriggerGraph";
@@ -8,6 +8,7 @@ import classNames from "classnames";
 import Settings from "../Settings";
 import {levels} from "../../../config/battery";
 import DataContext from "../../../contexts/dataContext";
+import {FirebaseAuthConsumer} from "@react-firebase/auth";
 
 
 const Main = () => {
@@ -46,25 +47,30 @@ const Main = () => {
     </div>
 
 
-    return <>
-        <Settings isVisible={displayModal} onClose={()=>setDisplayModal(false)}/>
-        <div className={styles.mainGrid}>
-            <Card mainComponent={
-                <div className={styles.totalRow}>
-                    <div className={styles.totalTitle}>Volts</div>
-                    <div className={styles.totalValue}>{data.currentState?.voltage?.value || '0.0'}</div>
-                </div>
-            } bottomText={getBatteryStatus(data.currentState?.voltage?.value)} gridArea={'volt'}/>
-            <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
-            <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'} onCLick={()=>setDisplayModal(p=>!p)}/>
-            <GraphCard gridArea={'graph1'}>
-                <BatteryGraph data={data.plots?.voltage?.data}/>
-            </GraphCard>
-            <GraphCard gridArea={'graph2'}>
-                <TriggerGraph data={data.plots?.activations?.data}/>
-            </GraphCard>
-        </div>
-    </>
+    return <FirebaseAuthConsumer>{({isSignedIn, user, providerId }) => (
+        <>
+            <Settings isSignedIn={isSignedIn} user={user} isVisible={displayModal} onClose={() => setDisplayModal(false)}/>
+            <div className={styles.mainGrid}>
+                <Card mainComponent={
+                    <div className={styles.totalRow}>
+                        <div className={styles.totalTitle}>Volts</div>
+                        <div className={styles.totalValue}>{data.currentState?.voltage?.value || '0.0'}</div>
+                    </div>
+                } bottomText={getBatteryStatus(data.currentState?.voltage?.value)} gridArea={'volt'}/>
+                <Card gridArea={'today'} mainComponent={totalGrid} bottomText={'Activations'}/>
+                <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'}
+                      onCLick={() => setDisplayModal(p => !p)}/>
+                <GraphCard gridArea={'graph1'}>
+                    <BatteryGraph data={data.plots?.voltage?.data}/>
+                </GraphCard>
+                <GraphCard gridArea={'graph2'}>
+                    <TriggerGraph data={data.plots?.activations?.data}/>
+                </GraphCard>
+            </div>
+        </>
+    )}
+
+    </FirebaseAuthConsumer>
 }
 
 const Card = ({gridArea='', mainComponent='', bottomText='', onCLick}) => {
