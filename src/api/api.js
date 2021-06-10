@@ -9,7 +9,7 @@ const API = axios.create({
     withCredentials: false
 })
 
-export const getBatteryGraph = async () => {
+export const getBatteryGraph = async () => { // todo показать в отчете
     return await API.get('data/battery.json')
 }
 
@@ -21,7 +21,7 @@ export const getSettings =  () => {
     return API.get('settings.json').then(r=>r.data)
 }
 
-export const setSettings = async (data) => {
+export const setSettings = async (data) => { // todo показать в отчете
     const token = await firebase.auth().currentUser.getIdToken()
     const prevSettings = await getSettings()
     return API.put('settings.json?auth='+token, {...prevSettings, ...data})

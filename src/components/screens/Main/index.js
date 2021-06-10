@@ -14,7 +14,7 @@ import {FirebaseAuthConsumer} from "@react-firebase/auth";
 const Main = () => {
     const [displayModal, setDisplayModal] = useState(false);
 
-    const {data, startService} = useContext(DataContext)
+    const {data, startService} = useContext(DataContext) // надо!!!!
 
     useEffect(()=>{
         startService()
@@ -61,7 +61,7 @@ const Main = () => {
                 <Card gridArea={'sets'} mainComponent={<FontAwesomeIcon icon={faCog}/>} bottomText={'Settings'}
                       onCLick={() => setDisplayModal(p => !p)}/>
                 <GraphCard gridArea={'graph1'}>
-                    <BatteryGraph data={data.plots?.voltage?.data}/>
+                    <BatteryGraph data={data.plots?.voltage?.data}/> {/*todo надо!*/}
                 </GraphCard>
                 <GraphCard gridArea={'graph2'}>
                     <TriggerGraph data={data.plots?.activations?.data}/>

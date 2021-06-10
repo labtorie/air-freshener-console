@@ -45,8 +45,8 @@ export const useDataContext = () => {
         console.log(data)
     }, [data])
 
-    const fetchData = async () => {
-        const {data: voltageData} = await getBatteryGraph()
+    const fetchData = async () => { //todo показать в отчете
+        const {data: voltageData} = await getBatteryGraph() // todo this
         const {data: activityData} = await getTriggerGraph()
 
         const voltageArray = Object
