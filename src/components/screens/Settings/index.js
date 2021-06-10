@@ -30,6 +30,11 @@ const Settings = ({isVisible, onClose=()=>{}, user, isSignedIn=false}) => {
 
     }
 
+    const hasSettingsChanged = () => {
+        return !(settings?.sleepTime == _settings?.sleepTime
+            && settings?.activeTime == settings?.activeTime)
+    }
+
     const onSignIn = async () => {
         const resp = await signIn(password)
         if (resp?.message) {
@@ -123,7 +128,7 @@ const Settings = ({isVisible, onClose=()=>{}, user, isSignedIn=false}) => {
         <div className={s.section}><span>Spray interval</span>
             <div className={s.inputArea}><input type={'number'} disabled/>minutes</div>
         </div>
-        <button onClick={onSave}>Apply changes</button>
+        <button onClick={onSave} disabled={!hasSettingsChanged()}>Apply changes</button>
         <div onClick={onClose} className={s.goBack}>{'< Back to home screen'}</div>
         </div>
 

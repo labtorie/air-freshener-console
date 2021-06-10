@@ -97,10 +97,14 @@ button {
     color: white;
     padding: 12px;
     border-radius: 4px;
+    width: max-content;
     margin: 12px 0;
     cursor: pointer;
+    transition-duration: .3s;
 }
-
+button:disabled {
+    background-color: #888888;
+}
 .goBack {
     color: #0071B0;
     cursor: pointer;
