@@ -1,9 +1,9 @@
 export const voltage = {
-    min: 6.5,
-    max: 9.6
+    min: 6.3,
+    max: 8.4
 }
 
-export const levels = [6.5, 7.0, 8.5, 9.5] // too-low, low, normal, good
+export const levels = [6.6, 7.2, 7.5, 8.4] // too-low, low, normal, good
 
 
 
